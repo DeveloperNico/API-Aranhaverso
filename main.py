@@ -1,8 +1,14 @@
-from fastapi import FastAPI, status, HTTPException, Depends
+import os
+from fastapi import FastAPI, status, HTTPException, Depends, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from model import Aranhaverso
 from typing import Optional, Any
 
 app = FastAPI(title="API do Aranhaverso", version="0.0.1", description="Mostra os homens-aranhas do aranhaverso")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 homens_aranhas = {
     1: {
@@ -36,6 +42,8 @@ homens_aranhas = {
     }
 }
 
+templates = Jinja2Templates(directory='templates')
+
 def fake_db():
     try:
         print("Conectando com o banco de dados.")
@@ -53,6 +61,20 @@ async def get_homens_aranhas(homens_aranhas_id: int):
         return homem_aranha
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Não existe um homem-aranha com o id {homens_aranhas_id}")
+
+@app.get("/", response_class=HTMLResponse)
+async def aranhaverso_page(request: Request, id: Optional[int] = None):
+    homem_aranha = None
+    erro = None
+    
+    if id:
+        if id in homens_aranhas:
+            homem_aranha = homens_aranhas[id]
+        else:
+            erro = f"Não existe um Homem-Aranha com o ID {id}."
+
+    return templates.TemplateResponse("aranhaverso.html", {"request": request, "titulo": "Aranhaverso", "homem_aranha": homem_aranha, "erro": erro})
+
 
 @app.post("/aranhas", status_code=status.HTTP_201_CREATED)
 async def post_homens_aranhas(homem_aranha: Optional[Aranhaverso] = None):
