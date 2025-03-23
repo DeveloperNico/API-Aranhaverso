@@ -13,6 +13,7 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #474747;
+    padding: 30px;
 }
 
 form {
@@ -44,6 +45,11 @@ input {
     flex-direction: column;
 }
 
+.container-erro {
+    margin-top: 30px;
+    color: #e6e6e6;
+}
+
 .container-titulo {
     font-size: 24px;
     font-family: 'Poppins', sans-serif;
@@ -63,4 +69,34 @@ button {
 button:hover {
     background-color: #890304;
     cursor: pointer;
+}
+
+.container-info {
+    background-color: #5e5e5e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 60px;
+    border-radius: 10px;
+    margin-top: 25px;
+    color: #e6e6e6;
+}
+
+.paragrafos {
+    width: 490px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & p {
+        margin: 5px 0;
+    }
+}
+
+.imagem img{
+    width: 300px;
+    height: auto;
 }
