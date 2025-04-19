@@ -13,7 +13,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 homens_aranhas = {
     1: {
         "nome": "Miles Morales",
-        "idade": 17,
+        "idade": 19,
         "cores_uniforme": "Preto com detalhes em vemelho",
         "poderes": "Choques elétricos, camuflagem, sentido aranha, agilidade e superforça",
         "personalidade": "Determinado, humilde, inseguro e empatico",
